@@ -8,13 +8,13 @@
   <script src="https://cdn.tailwindcss.com"></script>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Geist+Mono:wght@400;500&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500&display=swap" rel="stylesheet" />
   <script>
     tailwind.config = {
       theme: {
         extend: {
           fontFamily: {
-            mono: ['"Geist Mono"', 'monospace'],
+            sans: ['Geist', 'system-ui', 'sans-serif'],
           },
         },
       },
@@ -22,8 +22,8 @@
   </script>
   <style>
     body {
-      font-family: 'Geist Mono', monospace;
-      font-weight: 400;
+      font-family: 'Geist', system-ui, sans-serif;
+      font-weight: 500;
       font-size: 13px;
       line-height: 1.6;
       letter-spacing: 0.04em;
@@ -61,18 +61,18 @@
     <div class="px-6 sm:px-8">
       <!-- FROM -->
       <div class="flex py-3 border-b border-[#E5E5E5]">
-        <span class="text-[#666666] text-[11px] font-medium uppercase tracking-[0.15em] w-24 shrink-0 pt-[2px]">From</span>
-        <span class="text-[13px] font-normal text-[#1A1A1A] uppercase tracking-[0.06em]">JIHAN PARK</span>
+        <span class="text-[#666666] text-[13px] uppercase tracking-[0.06em] w-24 shrink-0 pt-[1px]">From</span>
+        <span class="text-[13px] text-[#1A1A1A] uppercase tracking-[0.06em]">JIHAN PARK</span>
       </div>
       <!-- TO -->
       <div class="flex py-3 border-b border-[#E5E5E5]">
-        <span class="text-[#666666] text-[11px] font-medium uppercase tracking-[0.15em] w-24 shrink-0 pt-[2px]">To</span>
-        <span class="text-[13px] font-normal text-[#1A1A1A] uppercase tracking-[0.06em]">YOU</span>
+        <span class="text-[#666666] text-[13px] uppercase tracking-[0.06em] w-24 shrink-0 pt-[1px]">To</span>
+        <span class="text-[13px] text-[#1A1A1A] uppercase tracking-[0.06em]">YOU</span>
       </div>
       <!-- SUBJECT -->
       <div class="flex py-3 border-b border-[#E5E5E5]">
-        <span class="text-[#666666] text-[11px] font-medium uppercase tracking-[0.15em] w-24 shrink-0 pt-[2px]">Subject</span>
-        <span class="text-[13px] font-normal text-[#1A1A1A] uppercase tracking-[0.06em]">HI, HERE'S WHO I AM</span>
+        <span class="text-[#666666] text-[13px] uppercase tracking-[0.06em] w-24 shrink-0 pt-[1px]">Subject</span>
+        <span class="text-[13px] text-[#1A1A1A] uppercase tracking-[0.06em]">HI, HERE'S WHO I AM</span>
       </div>
     </div>
 
@@ -81,7 +81,7 @@
 
       <!-- FOUNDER -->
       <div class="flex flex-col sm:flex-row gap-1 sm:gap-0">
-        <span class="text-[#666666] text-[11px] font-medium uppercase tracking-[0.15em] w-24 shrink-0 pt-[2px]">Founder</span>
+        <span class="text-[#666666] text-[13px] uppercase tracking-[0.06em] w-24 shrink-0 pt-[1px]">Founder</span>
         <div class="text-[13px] text-[#1A1A1A] leading-[1.6] uppercase tracking-[0.06em]">
           <div>CURRENT CONSULTING</div>
           <div>RIMA</div>
@@ -90,25 +90,25 @@
 
       <!-- UPCOMING -->
       <div class="flex flex-col sm:flex-row gap-1 sm:gap-0">
-        <span class="text-[#666666] text-[11px] font-medium uppercase tracking-[0.15em] w-24 shrink-0 pt-[2px]">Upcoming</span>
+        <span class="text-[#666666] text-[13px] uppercase tracking-[0.06em] w-24 shrink-0 pt-[1px]">Upcoming</span>
         <span class="text-[13px] text-[#1A1A1A] leading-[1.6] uppercase tracking-[0.06em]">LIKEWISE</span>
       </div>
 
       <!-- PREVIOUS -->
       <div class="flex flex-col sm:flex-row gap-1 sm:gap-0">
-        <span class="text-[#666666] text-[11px] font-medium uppercase tracking-[0.15em] w-24 shrink-0 pt-[2px]">Previous</span>
+        <span class="text-[#666666] text-[13px] uppercase tracking-[0.06em] w-24 shrink-0 pt-[1px]">Previous</span>
         <span class="text-[13px] text-[#1A1A1A] leading-[1.6] uppercase tracking-[0.06em]">MONOGEN</span>
       </div>
 
       <!-- VISION -->
       <div class="flex flex-col sm:flex-row gap-1 sm:gap-0">
-        <span class="text-[#666666] text-[11px] font-medium uppercase tracking-[0.15em] w-24 shrink-0 pt-[2px]">Vision</span>
+        <span class="text-[#666666] text-[13px] uppercase tracking-[0.06em] w-24 shrink-0 pt-[1px]">Vision</span>
         <span class="text-[13px] text-[#1A1A1A] leading-[1.6] uppercase tracking-[0.06em]">PROVE TO THE WORLD THAT SUCCESS CAN BE QUIET AND HEALTHY</span>
       </div>
 
       <!-- CONTACT -->
       <div class="flex flex-col sm:flex-row gap-1 sm:gap-0">
-        <span class="text-[#666666] text-[11px] font-medium uppercase tracking-[0.15em] w-24 shrink-0 pt-[2px]">Contact</span>
+        <span class="text-[#666666] text-[13px] uppercase tracking-[0.06em] w-24 shrink-0 pt-[1px]">Contact</span>
         <div class="text-[13px] text-[#1A1A1A] leading-[1.6] uppercase tracking-[0.06em] flex flex-wrap gap-x-4 gap-y-1">
           <a href="https://x.com" class="text-[#1A1A1A]">X ↗</a>
           <a href="https://instagram.com" class="text-[#1A1A1A]">Instagram ↗</a>
