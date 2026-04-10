@@ -212,7 +212,7 @@
       <p class="text-[13px] text-[#1A1A1A] leading-[1.8] mb-8">i write a weekly note on quiet success.<br>join 2,400+ builders.</p>
       <!-- Beehiiv Form -->
       <div id="newsletterForm">
-        <form onsubmit="handleSubscribe(event)" class="flex items-center gap-3">
+        <form action="https://www.beehiiv.com/new_subscription" method="post" target="hidden_iframe" onsubmit="handleSubscribe()" class="flex items-center gap-3">
           <input type="hidden" name="pubId" value="pub_7994e172-d949-49df-8ec9-0706cde384cf" />
           <input type="email" name="email" required placeholder="your email" class="newsletter-input flex-1" />
           <button type="submit" class="bg-[#1A1A1A] text-white text-[13px] font-medium tracking-[-0.01em] px-5 py-2 rounded cursor-pointer hover:bg-[#333] transition-colors">join</button>
@@ -224,6 +224,9 @@
       </div>
     </div>
   </div>
+
+  <!-- Hidden iframe for form submission -->
+  <iframe name="hidden_iframe" style="display: none;"></iframe>
 
   <script>
     const mainWindow = document.getElementById('mainWindow');
@@ -276,22 +279,7 @@
       if (isMinimized) restoreWindow();
     }
 
-    async function handleSubscribe(e) {
-      e.preventDefault();
-      const form = e.target;
-      const email = form.querySelector('input[name="email"]').value;
-      const pubId = form.querySelector('input[name="pubId"]').value;
-
-      try {
-        await fetch('https://api.beehiiv.com/v2/publications/' + pubId + '/subscriptions', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ email: email }),
-        });
-      } catch (err) {
-        // Subscribe silently — show success regardless
-      }
-
+    function handleSubscribe() {
       const formEl = document.getElementById('newsletterForm');
       const successEl = document.getElementById('newsletterSuccess');
       formEl.style.opacity = '0';
