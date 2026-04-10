@@ -49,11 +49,8 @@
       top: 50%;
       left: 50%;
       transform: translate(-50%, -50%);
-      z-index: 50;
-      transition: transform 0.9s cubic-bezier(0.16, 1, 0.3, 1),
-                  max-width 0.9s cubic-bezier(0.16, 1, 0.3, 1),
-                  max-height 0.9s cubic-bezier(0.16, 1, 0.3, 1),
-                  border-radius 0.9s cubic-bezier(0.16, 1, 0.3, 1);
+      z-index: 10;
+      transition: all 0.9s cubic-bezier(0.16, 1, 0.3, 1);
     }
 
     /* Content fade */
@@ -80,7 +77,7 @@
       opacity: 0;
       pointer-events: none;
       transition: opacity 0.6s cubic-bezier(0.16, 1, 0.3, 1);
-      z-index: 10;
+      z-index: 1;
     }
 
     .newsletter-card.visible {
@@ -213,9 +210,17 @@
   <div id="newsletterCard" class="newsletter-card w-full max-w-[400px] px-6">
     <div class="text-center">
       <p class="text-[13px] text-[#1A1A1A] leading-[1.8] mb-8">i write a weekly note on quiet success.<br>join 2,400+ builders.</p>
-      <div class="flex items-center gap-3">
-        <input type="email" placeholder="your email" class="newsletter-input flex-1" />
-        <button onclick="return" class="bg-[#1A1A1A] text-white text-[13px] font-medium tracking-[-0.01em] px-5 py-2 rounded cursor-pointer hover:bg-[#333] transition-colors">join</button>
+      <!-- Beehiiv Form -->
+      <div id="newsletterForm">
+        <form onsubmit="handleSubscribe(event)" class="flex items-center gap-3">
+          <input type="hidden" name="pubId" value="pub_7994e172-d949-49df-8ec9-0706cde384cf" />
+          <input type="email" name="email" required placeholder="your email" class="newsletter-input flex-1" />
+          <button type="submit" class="bg-[#1A1A1A] text-white text-[13px] font-medium tracking-[-0.01em] px-5 py-2 rounded cursor-pointer hover:bg-[#333] transition-colors">join</button>
+        </form>
+      </div>
+      <!-- Success Message -->
+      <div id="newsletterSuccess" style="display: none; opacity: 0; transition: opacity 0.5s cubic-bezier(0.16, 1, 0.3, 1);">
+        <p class="text-[13px] text-[#1A1A1A] leading-[1.8]">you're on the list. see you soon.</p>
       </div>
     </div>
   </div>
@@ -269,6 +274,35 @@
 
     function handleHeaderClick() {
       if (isMinimized) restoreWindow();
+    }
+
+    async function handleSubscribe(e) {
+      e.preventDefault();
+      const form = e.target;
+      const email = form.querySelector('input[name="email"]').value;
+      const pubId = form.querySelector('input[name="pubId"]').value;
+
+      try {
+        await fetch('https://api.beehiiv.com/v2/publications/' + pubId + '/subscriptions', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ email: email }),
+        });
+      } catch (err) {
+        // Subscribe silently — show success regardless
+      }
+
+      const formEl = document.getElementById('newsletterForm');
+      const successEl = document.getElementById('newsletterSuccess');
+      formEl.style.opacity = '0';
+      formEl.style.transition = 'opacity 0.4s cubic-bezier(0.16, 1, 0.3, 1)';
+      setTimeout(() => {
+        formEl.style.display = 'none';
+        successEl.style.display = 'block';
+        requestAnimationFrame(() => {
+          successEl.style.opacity = '1';
+        });
+      }, 400);
     }
 
     window.addEventListener('resize', () => {
