@@ -50,20 +50,15 @@
       left: 50%;
       transform: translate(-50%, -50%);
       z-index: 50;
-      transition: all 0.9s cubic-bezier(0.16, 1, 0.3, 1);
-    }
-
-    /* Minimized state */
-    .window-minimized {
-      transform: translate(-50%, calc(50vh - 42px)) scale(0.8) !important;
-      max-width: 240px !important;
-      overflow: hidden;
-      border-top: 1px solid rgba(0,0,0,0.05);
+      transition: transform 0.9s cubic-bezier(0.16, 1, 0.3, 1),
+                  max-width 0.9s cubic-bezier(0.16, 1, 0.3, 1),
+                  max-height 0.9s cubic-bezier(0.16, 1, 0.3, 1),
+                  border-radius 0.9s cubic-bezier(0.16, 1, 0.3, 1);
     }
 
     /* Content fade */
     .window-content {
-      transition: opacity 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+      transition: opacity 0.4s cubic-bezier(0.16, 1, 0.3, 1);
     }
 
     .window-minimized .window-content {
@@ -228,16 +223,35 @@
   <script>
     const mainWindow = document.getElementById('mainWindow');
     const newsletterCard = document.getElementById('newsletterCard');
+    const headerBar = mainWindow.querySelector('.header-bar');
     let isMinimized = false;
+
+    function dockPosition() {
+      const vh = window.innerHeight;
+      const headerH = headerBar.offsetHeight;
+      const scale = 0.8;
+      const pad = 12;
+      // Place so the scaled header sits flush at the bottom with pad px gap
+      // visual bottom = (vh/2 + Y + headerH/2) + headerH*scale/2 = vh - pad
+      const translateY = vh / 2 - pad - headerH * (1 + scale) / 2;
+      return `translate(-50%, ${translateY}px) scale(${scale})`;
+    }
 
     function minimizeWindow(e) {
       if (e) e.stopPropagation();
       if (isMinimized) return;
       isMinimized = true;
+
+      const headerH = headerBar.offsetHeight;
+      mainWindow.style.maxHeight = headerH + 'px';
+      mainWindow.style.overflow = 'hidden';
+      mainWindow.style.maxWidth = '240px';
+      mainWindow.style.transform = dockPosition();
       mainWindow.classList.add('window-minimized');
+
       setTimeout(() => {
         newsletterCard.classList.add('visible');
-      }, 200);
+      }, 250);
     }
 
     function restoreWindow(e) {
@@ -245,12 +259,21 @@
       if (!isMinimized) return;
       isMinimized = false;
       newsletterCard.classList.remove('visible');
+
+      mainWindow.style.transform = 'translate(-50%, -50%)';
+      mainWindow.style.maxHeight = '';
+      mainWindow.style.overflow = '';
+      mainWindow.style.maxWidth = '';
       mainWindow.classList.remove('window-minimized');
     }
 
     function handleHeaderClick() {
       if (isMinimized) restoreWindow();
     }
+
+    window.addEventListener('resize', () => {
+      if (isMinimized) mainWindow.style.transform = dockPosition();
+    });
   </script>
 
 </body>
