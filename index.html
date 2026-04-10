@@ -212,8 +212,9 @@
       <p class="text-[13px] text-[#1A1A1A] leading-[1.8] mb-8">i write a weekly note on quiet success.<br>join 2,400+ builders.</p>
       <!-- Beehiiv Form -->
       <div id="newsletterForm">
-        <form action="https://www.beehiiv.com/new_subscription" method="post" target="hidden_iframe" onsubmit="handleSubscribe()" class="flex items-center gap-3">
+        <form action="https://embeds.beehiiv.com/subscribe" method="post" target="hidden_iframe" onsubmit="handleSubscribe()" class="flex items-center gap-3">
           <input type="hidden" name="pubId" value="pub_7994e172-d949-49df-8ec9-0706cde384cf" />
+          <input type="hidden" name="redirect_to" value="https://jihanpark.com" />
           <input type="email" name="email" required placeholder="your email" class="newsletter-input flex-1" />
           <button type="submit" class="bg-[#1A1A1A] text-white text-[13px] font-medium tracking-[-0.01em] px-5 py-2 rounded cursor-pointer hover:bg-[#333] transition-colors">join</button>
         </form>
@@ -282,15 +283,18 @@
     function handleSubscribe() {
       const formEl = document.getElementById('newsletterForm');
       const successEl = document.getElementById('newsletterSuccess');
-      formEl.style.opacity = '0';
-      formEl.style.transition = 'opacity 0.4s cubic-bezier(0.16, 1, 0.3, 1)';
+      // Wait 500ms for data to send via iframe, then transition
       setTimeout(() => {
-        formEl.style.display = 'none';
-        successEl.style.display = 'block';
-        requestAnimationFrame(() => {
-          successEl.style.opacity = '1';
-        });
-      }, 400);
+        formEl.style.opacity = '0';
+        formEl.style.transition = 'opacity 0.4s cubic-bezier(0.16, 1, 0.3, 1)';
+        setTimeout(() => {
+          formEl.style.display = 'none';
+          successEl.style.display = 'block';
+          requestAnimationFrame(() => {
+            successEl.style.opacity = '1';
+          });
+        }, 400);
+      }, 500);
     }
 
     window.addEventListener('resize', () => {
